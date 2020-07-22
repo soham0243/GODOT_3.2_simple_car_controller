@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Materials/floor_material.tres" type="Material" id=1]
+[ext_resource path="res://Assets/Scripts/Camera.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Scenes/police_car.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="PlaneMesh" id=2]
+material = ExtResource( 1 )
+size = Vector2( 1000, 1000 )
+subdivide_width = 10
+subdivide_depth = 10
+
+[node name="Main" type="Spatial"]
+
+[node name="Ground" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+transform = Transform( 1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0.754, 1.19, -0.624 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.754122, 1.19045, -0.624127 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.732769, 0.680478, 0, -0.680478, 0.732769, 0, 5.875, 0 )
+
+[node name="Car" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7663, 0 )
+
+[node name="police_car" parent="Car" instance=ExtResource( 3 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1.54122e-07, 0.324182, -0.945995, 5.28159e-08, 0.945995, 0.324182, 1, 7.10543e-15, -1.62921e-07, -3.56937, 2.9561, 0.322375 )
+script = ExtResource( 2 )
+follow_this_path = NodePath("../Car/police_car")
